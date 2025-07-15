@@ -1,69 +1,82 @@
-# Indeed Job Scraper with Email Notifications
+# RemoteOK Job Scraper with Email Notifications
 
-This Python project scrapes job listings from Indeed.com based on specified keywords and location, and sends email notifications when new jobs matching your criteria are found.
+This Python project fetches remote job listings from RemoteOK.com based on specific keywords and sends email alerts when new jobs matching your criteria are found.
 
 ---
 
 ## Features
 
-- Scrapes jobs from Indeed using keywords like "Network Engineer" and "Cybersecurity"
-- Filters jobs by location (e.g., "remote")
-- Sends email notifications to multiple recipients with new job listings
-- Avoids duplicate notifications by tracking previously sent jobs
+-  Pulls jobs from RemoteOK's public API.
+-  Filters jobs by tags/keywords (e.g., "network", "engineer", "cybersecurity")
+-  Sends email notifications with job details
+-  Avoids duplicate alerts using a local JSON file
+-  Clean and modular project structure
 
 ---
 
 ## Setup
 
-1. **Clone the repository:**
+### 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/yourusername/job-scraper.git
+cd job-scraper
 ```
 
-2. **Install dependencies:**
+### 2. **Install Dependencies**
 
 ```bash
-pip install requests beautifulsoup4
+pip install requests
 ```
 
-3. **Configure settings:**
+### 3. **Edit Configuration**
 
-- Open `config.py`
-- Set your job `KEYWORDS` and `LOCATION`
-- Enter your sender email (`EMAIL_SENDER`), app password (`EMAIL_PASSWORD`), and list of receiver emails (`EMAIL_RECEIVERS`)
+Open `config.py` and update:
 
-> **Note:** For Gmail, use an [App Password](https://myaccount.google.com/apppasswords) instead of your main password.
+```python
+KEYWORDS = ["network", "engineer", "cybersecurity"]
+
+EMAIL_SENDER = "your_email@gmail.com"
+EMAIL_PASSWORD = "your_app_password"
+EMAIL_RECEIVERS = ["you@example.com", "colleague@example.com"]
+```
+
+> 💡 Use a [Gmail App Password](https://myaccount.google.com/apppasswords) instead of your regular password if you use 2FA.
 
 ---
 
 ## Usage
 
-Run the main script to fetch new jobs and send email notifications:
+Run the main script:
 
 ```bash
 python main.py
 ```
 
----
-
-## File Structure
-
-- `config.py` — Configuration settings (keywords, email info, etc.)  
-- `scraper.py` — Scrapes job listings from Indeed  
-- `notifier.py` — Sends email notifications  
-- `main.py` — Runs scraper and notifier  
-- `job_data.json` — Stores previously sent jobs to avoid duplicates  
+If new jobs match your criteria, you’ll receive an email with job titles, companies, and direct links.
 
 ---
 
-## License
+## 📁 File Structure
 
-This project is licensed under the MIT License.
+```
+job-scraper/
+├── config.py        # Keyword & email config
+├── scraper.py       # Pulls jobs from RemoteOK
+├── notifier.py      # Sends email alerts
+├── main.py          # Orchestrates everything
+├── job_data.json    # Stores sent job links
+├── README.md        # You’re reading it
+```
 
 ---
 
-## Contributions
+## 📄 License
 
-Feel free to open issues or submit pull requests!
+MIT License — free to use, modify, and share.
+
+---
+
+## Contributing
+
+Feel free to fork this repo, suggest changes, or open issues. Pull requests are welcome!

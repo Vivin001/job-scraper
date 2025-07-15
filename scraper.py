@@ -1,61 +1,40 @@
 # scraper.py
 
 import requests
-from bs4 import BeautifulSoup
 import json
-import time
-from config import KEYWORDS, LOCATION, INDEED_BASE_URL, HEADERS
-
-JOB_STORAGE_FILE = "job_data.json"
-
-
-def load_previous_jobs():
-    try:
-        with open(JOB_STORAGE_FILE, "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-
-
-def save_new_jobs(jobs):
-    with open(JOB_STORAGE_FILE, "w") as file:
-        json.dump(jobs, file, indent=4)
+from config import KEYWORDS
+from urllib.parse import urljoin
 
 
 def fetch_jobs():
-    found_jobs = []
-    seen_jobs = load_previous_jobs()
+    resp = requests.get("https://remoteok.com/api",
+                        headers={"User-Agent": "Mozilla/5.0"})
+    jobs_data = resp.json()
 
-    for keyword in KEYWORDS:
-        query = keyword.replace(" ", "+")
-        url = f"{INDEED_BASE_URL}?q={query}&l={LOCATION}"
+    seen = set()
+    try:
+        with open("job_data.json") as f:
+            seen = set(item["link"] for item in json.load(f))
+    except FileNotFoundError:
+        pass
 
-        response = requests.get(url, headers=HEADERS)
-        soup = BeautifulSoup(response.text, "html.parser")
-        job_cards = soup.find_all("a", attrs={"data-hide-spinner": "true"})
-
-        for job in job_cards:
-            title_elem = job.find("span")
-            company_elem = job.find_parent().find("span", class_="companyName")
-            location_elem = job.find_parent().find("div", class_="companyLocation")
-
-            if not title_elem or not company_elem or not location_elem:
-                continue
-
-            job_info = {
-                "title": title_elem.text.strip(),
-                "company": company_elem.text.strip(),
-                "location": location_elem.text.strip(),
-                "link": f"https://www.indeed.com{job['href']}"
+    new = []
+    for job in jobs_data:
+        link = job.get("url")
+        if not link or link in seen:
+            continue
+        tags = job.get("tags", [])
+        if any(keyword.lower() in " ".join(tags).lower() for keyword in KEYWORDS):
+            entry = {
+                "title": job["position"],
+                "company": job["company"],
+                "location": job.get("location", "remote"),
+                "link": link
             }
+            new.append(entry)
+            seen.add(link)
 
-            if job_info not in seen_jobs:
-                found_jobs.append(job_info)
-                seen_jobs.append(job_info)
+    with open("job_data.json", "w") as f:
+        json.dump([{"link": link} for link in seen], f, indent=4)
 
-        time.sleep(1)  # Be polite to Indeed’s server
-
-    if found_jobs:
-        save_new_jobs(seen_jobs)
-
-    return found_jobs
+    return new
