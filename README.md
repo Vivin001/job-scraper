@@ -1,82 +1,115 @@
-# RemoteOK Job Scraper with Email Notifications
+# 💼 JobSrybe - Jobs to your Inbox (RemoteOK + Flask)
 
-This Python project fetches remote job listings from RemoteOK.com based on specific keywords and sends email alerts when new jobs matching your criteria are found.
+This Python project is a Flask-based web application that scrapes remote job listings from [RemoteOK.com](https://remoteok.com) based on **user-provided role and location**, and sends personalized job listings to the provided **email address**.
 
 ---
 
 ## Features
 
--  Pulls jobs from RemoteOK's public API.
--  Filters jobs by tags/keywords (e.g., "network", "engineer", "cybersecurity")
--  Sends email notifications with job details
--  Avoids duplicate alerts using a local JSON file
--  Clean and modular project structure
+- ✅ Live job scraping from RemoteOK’s public API  
+- ✅ User inputs (role, location, email) via web form  
+- ✅ HTML-formatted email alerts with job title, company, location, and apply link  
+- ✅ Prevents duplicate job notifications using a local `job_data.json` tracker  
+- ✅ Clean modular structure (Flask + Email + Scraper logic)  
+- ✅ Mobile-friendly UI  
 
 ---
 
-## Setup
+##  How It Works
 
-### 1. **Clone the Repository**
+1. User opens the web form  
+2. Enters: Name, Email, Desired Role, Preferred Location  
+3. On submission:  
+   - Jobs are fetched from RemoteOK API  
+   - Filtered by the user input  
+   - Sent to the email address as an HTML report  
+
+---
+
+##  Setup Instructions
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/job-scraper.git
+git clone https://github.com/Vivin001/job-scraper.git
 cd job-scraper
 ```
 
-### 2. **Install Dependencies**
+### 2. Install Required Python Packages
 
 ```bash
-pip install requests
+pip install flask requests
 ```
 
-### 3. **Edit Configuration**
+### 3. Configure Gmail Settings
 
-Open `config.py` and update:
+Edit `config.py`:
 
 ```python
-KEYWORDS = ["network", "engineer", "cybersecurity"]
-
 EMAIL_SENDER = "your_email@gmail.com"
-EMAIL_PASSWORD = "your_app_password"
-EMAIL_RECEIVERS = ["you@example.com", "colleague@example.com"]
+EMAIL_PASSWORD = "your_gmail_app_password"
 ```
 
-> 💡 Use a [Gmail App Password](https://myaccount.google.com/apppasswords) instead of your regular password if you use 2FA.
+> 💡 Use a [Gmail App Password](https://myaccount.google.com/apppasswords) (required if 2FA is enabled).
 
 ---
 
-## Usage
-
-Run the main script:
+##  Run the App
 
 ```bash
-python main.py
+python app.py
 ```
 
-If new jobs match your criteria, you’ll receive an email with job titles, companies, and direct links.
+Visit [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser and fill out the form to get job updates via email.
 
 ---
 
-## 📁 File Structure
+##  Project Structure
 
 ```
 job-scraper/
-├── config.py        # Keyword & email config
-├── scraper.py       # Pulls jobs from RemoteOK
-├── notifier.py      # Sends email alerts
-├── main.py          # Orchestrates everything
-├── job_data.json    # Stores sent job links
-├── README.md        # You’re reading it
+├── app.py              # Flask web server
+├── config.py           # Email credentials
+├── scraper.py          # RemoteOK API fetch & filter
+├── notifier.py         # Email sending logic
+├── job_data.json       # Tracks already-sent jobs
+├── templates/
+│   ├── index.html      # User form (HTML)
+│   └── success.html    # Success page after submission
+├── README.md
 ```
 
 ---
 
-## 📄 License
+##  Troubleshooting
 
-MIT License — free to use, modify, and share.
+- **Not receiving email?**
+  - Double-check Gmail App Password
+  - Make sure `EMAIL_SENDER` has enabled "Allow less secure apps" *(not needed if using App Password)*
+  - Check spam folder
+
+- **No job listings in email?**
+  - Try broader role keywords (e.g., `Developer`, `Engineer`)
+  - RemoteOK may not have matching listings at the moment
 
 ---
 
-## Contributing
+##  Sample UI
 
-Feel free to fork this repo, suggest changes, or open issues. Pull requests are welcome!
+> 📬 Users submit this form to receive job alerts.
+
+![Job Scraper UI](https://raw.githubusercontent.com/Vivin001/job-scraper/main/docs/ui-sample.png)
+
+> *(Optional: Upload a screenshot to `/docs/ui-sample.png` in your repo)*
+
+---
+
+## 📜 License
+
+MIT License — feel free to use, modify, and share ⭐
+
+---
+
+## 🤝 Contributing
+
+Got ideas or improvements? Open a PR or issue — contributions are welcome!
