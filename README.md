@@ -94,13 +94,17 @@ job-scraper/
 
 ---
 
-##  Sample UI
+## 🖼 Sample UI
 
 > 📬 Users submit this form to receive job alerts.
 
-![Job Scraper UI](https://raw.githubusercontent.com/Vivin001/job-scraper/main/docs/ui-sample.png)
+### 🔹 Job Search Form
 
-> *(Optional: Upload a screenshot to `/docs/ui-sample.png` in your repo)*
+![Form UI](docs/form.png)
+
+### ✅ Success Page
+
+![Success Page](docs/success.png)
 
 ---
 
