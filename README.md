@@ -100,12 +100,12 @@ job-scraper/
 
 ### 🔹 Job Search Form
 
-<img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/da536481-fb2b-4673-bcf8-094edb88f9a0" />
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/da536481-fb2b-4673-bcf8-094edb88f9a0" />
 
 
 ### ✅ Success Page
 
-<img width="900" height="338" alt="image" src="https://github.com/user-attachments/assets/5ce88ab0-1350-4ced-bee2-bbd6c6308dd2" />
+<img width="700" height="338" alt="image" src="https://github.com/user-attachments/assets/5ce88ab0-1350-4ced-bee2-bbd6c6308dd2" />
 
 
 ---
