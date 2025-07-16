@@ -100,7 +100,7 @@ job-scraper/
 
 ### 🔹 Job Search Form
 
-<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/da536481-fb2b-4673-bcf8-094edb88f9a0" />
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/af08ab76-82d0-4b76-8285-e1e02092ec8f" />
 
 
 ### ✅ Success Page
